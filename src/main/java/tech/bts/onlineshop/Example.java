@@ -7,6 +7,7 @@ import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Example {
@@ -36,6 +37,38 @@ public class Example {
         System.out.println("Products by Apple: " + productsByApple);
         for (Product p : productsByApple) {
             System.out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
+        }
+
+        List<Product> productsByPrice = productDatabase.getByPriceRange(500, 1300);
+        System.out.println("Products by price:");
+        for (Product p : productsByPrice) {
+            System.out.println(p.getName() + ", " + p.getBrand() + ", " + p.getPrice());
+        }
+        System.out.println("Products by price, all of them: " + productsByPrice);
+
+        productDatabase.remove(2);
+        productDatabase.remove(3);
+
+        System.out.println("All products after removing:");
+        Collection<Product> allProducts = productDatabase.getAll();
+        for (Product p : allProducts) {
+            System.out.println(p);
+        }
+
+        Product p4 = new Product("lightning cable", "Apple", 10);
+        productDatabase.add(p4);
+
+        System.out.println("Number of products now: " + productDatabase.getCount());
+
+        long requestedId = 1;
+        Product requestedProduct = productDatabase.get(requestedId);
+
+        // if the requested product exists, write "the name of the product is XXXXX"
+        // if it doesn't, write "the product with ID XXXXX doesn't exist"
+        if (requestedProduct != null) {
+            System.out.println("the name of the product is " + requestedProduct.getName());
+        } else {
+            System.out.println("the product with ID " + requestedId + " doesn't exist");
         }
 
 
