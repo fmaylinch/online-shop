@@ -13,8 +13,13 @@ public class ProductService {
     }
 
 
-    public void createProduct(Product product) {
-        this.productDatabase.add(product);
+    /** Adds a product and returns the id for that product */
+    public long createProduct(Product product) {
+        return this.productDatabase.add(product);
+    }
+
+    public Product getProductById(long productId) {
+        return productDatabase.get(productId);
     }
 
     public void addProductStock(long productId, int quantity) {
