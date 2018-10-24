@@ -1,6 +1,6 @@
 package tech.bts.onlineshop;
 
-import tech.bts.onlineshop.business.PurchaseService;
+import tech.bts.onlineshop.business.ProductService;
 import tech.bts.onlineshop.data.ProductDatabase;
 import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
@@ -73,17 +73,5 @@ public class Example {
             System.out.println("the product with ID " + requestedId + " doesn't exist");
         }
 
-
-        List<CartItem> items = Arrays.asList(
-                new CartItem(p1, 2),
-                new CartItem(p2, 3),
-                new CartItem(p3, 1));
-
-        ShoppingCart cart = new ShoppingCart(items);
-
-        PurchaseService purchaseService = new PurchaseService();
-
-        double total = purchaseService.calculateTotalAmount(cart);
-        System.out.println("Total amount of cart: " + total);
     }
 }
