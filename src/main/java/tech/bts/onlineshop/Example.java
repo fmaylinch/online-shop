@@ -23,6 +23,8 @@ public class Example {
         productDatabase.add(p2);
         productDatabase.add(p3);
 
+        System.out.println("p1 is available? " + p1.isAvailable());
+
         Product product = productDatabase.get(3);
         System.out.println("The name of the product is: " + product.getName());
 

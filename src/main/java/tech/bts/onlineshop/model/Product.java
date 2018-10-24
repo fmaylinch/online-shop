@@ -6,7 +6,7 @@ public class Product {
     private String name;
     private String brand;
     private double price;
-    private boolean available;
+    private int quantity;
 
     public final static long NOT_SPECIFIED = -1;
 
@@ -15,7 +15,7 @@ public class Product {
         this.name = name;
         this.brand = brand;
         this.price = price;
-        this.available = true;
+        this.quantity = 0;
     }
 
     @Override
@@ -56,10 +56,14 @@ public class Product {
     }
 
     public boolean isAvailable() {
-        return available;
+        return this.quantity > 0;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
