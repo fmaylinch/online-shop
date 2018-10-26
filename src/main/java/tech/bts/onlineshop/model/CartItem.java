@@ -5,16 +5,16 @@ package tech.bts.onlineshop.model;
  */
 public class CartItem {
 
-    private Product product;
+    private long productId;
     private int quantity;
 
-    public CartItem(Product product, int quantity) {
-        this.product = product;
+    public CartItem(long productId, int quantity) {
+        this.productId = productId;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public long getProductId() {
+        return productId;
     }
 
     public int getQuantity() {
