@@ -20,6 +20,10 @@ public class ProductService {
         return this.productDatabase.add(product);
     }
 
+    public int getCount() {
+        return productDatabase.getCount();
+    }
+
     public Product getProductById(long productId) {
         return productDatabase.get(productId);
     }
