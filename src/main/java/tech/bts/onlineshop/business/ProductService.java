@@ -28,4 +28,18 @@ public class ProductService {
         int total = product.getQuantity() + quantity;
         product.setQuantity(total);
     }
+
+    /** Returns true if the given quantity is available for that product */
+    public boolean checkProductAvailabiliy(long productId, int quantity) {
+
+        Product product = productDatabase.get(productId);
+        return product.getQuantity() >= quantity;
+    }
+
+    /** Returns the quantity that is possible to deliver for that product */
+    public int getAvailableQuantity(long productId, int quantity) {
+
+        Product product = productDatabase.get(productId);
+        return Math.min(product.getQuantity(), quantity);
+     }
 }
