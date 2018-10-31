@@ -7,7 +7,7 @@ import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
 import tech.bts.onlineshop.model.ShoppingCart;
 
-import java.util.List;
+import java.util.Arrays;
 
 public class ProductServiceTest {
 
@@ -104,13 +104,8 @@ public class ProductServiceTest {
         Assert.assertEquals(0, productService.getProductById(penId).getQuantity());
         Assert.assertEquals(20, productService.getProductById(macId).getQuantity());
 
-        List<CartItem> items = actualCart.getItems();
-        Assert.assertEquals(2, items.size());
-
-        CartItem penItem = items.get(0);
-        Assert.assertEquals(penItem, new CartItem(penId, 100));
-
-        CartItem macItem = items.get(1);
-        Assert.assertEquals(macItem, new CartItem(macId, 30));
+        Assert.assertEquals(actualCart.getItems(), Arrays.asList(
+                new CartItem(penId, 100),
+                new CartItem(macId, 30)));
     }
 }
