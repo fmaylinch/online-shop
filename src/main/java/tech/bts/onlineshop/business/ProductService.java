@@ -20,6 +20,14 @@ public class ProductService {
         return this.productDatabase.add(product);
     }
 
+    /** Adds a product with initial stock and returns the id for that product */
+    public long createProduct(Product product, int initialStock) {
+
+        long productId = this.createProduct(product);
+        this.addProductStock(productId, initialStock);
+        return productId;
+    }
+
     public int getCount() {
         return productDatabase.getCount();
     }

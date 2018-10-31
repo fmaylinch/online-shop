@@ -3,7 +3,9 @@ package tech.bts.onlineshop.business;
 import org.junit.Assert;
 import org.junit.Test;
 import tech.bts.onlineshop.data.ProductDatabase;
+import tech.bts.onlineshop.model.CartItem;
 import tech.bts.onlineshop.model.Product;
+import tech.bts.onlineshop.model.ShoppingCart;
 
 public class ProductServiceTest {
 
@@ -49,8 +51,7 @@ public class ProductServiceTest {
 
         ProductDatabase productDatabase = new ProductDatabase();
         ProductService productService = new ProductService(productDatabase);
-        Product product = new Product("pixel", "Google", 800);
-        long pixelId = productService.createProduct(product);
+        long pixelId = productService.createProduct(new Product("pixel", "Google", 800));
 
         Assert.assertEquals(0, productService.getAvailableQuantity(pixelId, 50));
 
@@ -60,4 +61,26 @@ public class ProductServiceTest {
         Assert.assertEquals(100, productService.getAvailableQuantity(pixelId, 200));
     }
 
+    @Test
+    public void purchase_reduces_products_stock() {
+
+        // 1- setup the necessary objects
+        ProductService productService = new ProductService(new ProductDatabase());
+
+        long penId = productService.createProduct(new Product("pen", "Pilot", 3), 100);
+        long macId = productService.createProduct(new Product("macbook", "Apple", 1500), 50);
+        long tvId = productService.createProduct(new Product("tv", "Sony", 400), 500);
+
+        ShoppingCart cart = new ShoppingCart();
+        cart.add(new CartItem(penId, 20));
+        cart.add(new CartItem(tvId, 50));
+
+        // 2- calling the method(s) we are testing
+        productService.purchase(cart);
+
+        // 3- check the expected result
+        Assert.assertEquals(80, productService.getProductById(penId).getQuantity());
+        Assert.assertEquals(450, productService.getProductById(tvId).getQuantity());
+        Assert.assertEquals(50, productService.getProductById(macId).getQuantity());
+    }
 }
