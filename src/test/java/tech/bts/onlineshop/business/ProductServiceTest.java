@@ -83,4 +83,20 @@ public class ProductServiceTest {
         Assert.assertEquals(450, productService.getProductById(tvId).getQuantity());
         Assert.assertEquals(50, productService.getProductById(macId).getQuantity());
     }
+
+    @Test
+    public void purchase_more_than_available() {
+
+        // 1- setup the necessary objects
+        ProductService productService = new ProductService(new ProductDatabase());
+        long penId = productService.createProduct(new Product("pen", "Pilot", 3), 100);
+        ShoppingCart cart = new ShoppingCart();
+        cart.add(new CartItem(penId, 200));
+
+        // 2- calling the method(s) we are testing
+        productService.purchase(cart);
+
+        // 3- check the expected result
+        Assert.assertEquals(0, productService.getProductById(penId).getQuantity());
+    }
 }

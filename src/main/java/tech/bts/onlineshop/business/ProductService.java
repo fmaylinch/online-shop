@@ -63,7 +63,7 @@ public class ProductService {
         for (CartItem item : cart.getItems()) {
             Product product = productDatabase.get(item.getProductId());
             int remainingQuantity = product.getQuantity() - item.getQuantity();
-            product.setQuantity(remainingQuantity);
+            product.setQuantity(Math.max(remainingQuantity, 0));
         }
     }
 }
