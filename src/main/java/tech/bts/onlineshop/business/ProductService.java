@@ -57,13 +57,23 @@ public class ProductService {
         return Math.min(product.getQuantity(), quantity);
      }
 
-    /** Reduces the quantities of the products by the quantities in the cart */
-    public void purchase(ShoppingCart cart) {
+    /**
+     * Reduces the quantities of the products by the quantities in the cart.
+     * If some quantity is greater than the available stock, the stock will be set to 0.
+     * Returns a shopping cart with the actual quantities that were purchased (depending on stock).
+     */
+    public ShoppingCart purchase(ShoppingCart cart) {
+
+        ShoppingCart result = new ShoppingCart();
 
         for (CartItem item : cart.getItems()) {
             Product product = productDatabase.get(item.getProductId());
-            int remainingQuantity = product.getQuantity() - item.getQuantity();
-            product.setQuantity(Math.max(remainingQuantity, 0));
+            int actualQuantity = Math.min(product.getQuantity(), item.getQuantity());
+            int remainingQuantity = product.getQuantity() - actualQuantity;
+            product.setQuantity(remainingQuantity);
+            result.add(new CartItem(item.getProductId(), actualQuantity));
         }
+
+        return result;
     }
 }
